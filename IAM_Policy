@@ -1,0 +1,69 @@
+{
+    "Version": "2023-08-05",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:CreateLogGroup",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:ListFunctions",
+                "lambda:ListVersionsByFunction",
+                "scheduler:GetSchedule",
+                "lambda:ListAliases",
+                "lambda:ListFunctionUrlConfigs",
+                "ec2:Start*",
+                "scheduler:ListScheduleGroups",
+                "ec2:Stop*",
+                "scheduler:ListTagsForResource",
+                "lambda:ListProvisionedConcurrencyConfigs",
+                "lambda:ListFunctionEventInvokeConfigs",
+                "lambda:ListFunctionsByCodeSigningConfig",
+                "scheduler:*",
+                "lambda:ListEventSourceMappings",
+                "lambda:*",
+                "scheduler:ListSchedules",
+                "lambda:ListLayerVersions",
+                "lambda:ListLayers",
+                "scheduler:GetScheduleGroup",
+                "lambda:ListCodeSigningConfigs"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:StopInstances",
+                "ec2:StartInstances"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:StopInstances",
+                "ec2:StartInstances"
+            ],
+            "Resource": "arn:aws:ec2:us-east-1:4*your_owner_id:instance/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:StopInstances",
+                "ec2:StartInstances"
+            ],
+            "Resource": "arn:aws:ec2:us-east-2:4*your_owner_id:instance/*"
+        }
+    ]
+}
