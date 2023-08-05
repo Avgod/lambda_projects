@@ -1,0 +1,30 @@
+import boto3
+
+instances = [
+    {'instance_id': 'i-******', 'region': 'us-east-2'},
+    {'instance_id': 'i-******', 'region': 'us-east-2'},
+    {'instance_id': 'i-******', 'region': 'us-east-1'},
+    # Add more instances as needed, with their respective regions
+]
+
+def stop_ec2_instance(instance_id, region):
+    ec2_client = boto3.client('ec2', region_name=region)
+
+    try:
+        response = ec2_client.describe_instances(InstanceIds=[instance_id])
+        state = response['Reservations'][0]['Instances'][0]['State']['Name']
+
+        if state == 'running':
+            ec2_client.stop_instances(InstanceIds=[instance_id])
+            print(f"EC2 instance {instance_id} has been stopped in {region}.")
+        else:
+            print(f"EC2 instance {instance_id} is not in 'running' state in {region}. No action taken.")
+    except Exception as e:
+        print(f"Error stopping EC2 instance {instance_id} in {region}: {str(e)}")
+        raise e
+
+def lambda_handler(event, context):
+    for instance_info in instances:
+        instance_id = instance_info['instance_id']
+        region = instance_info['region']
+        stop_ec2_instance(instance_id, region)
